@@ -89,12 +89,23 @@ async def score(context: discord.ApplicationContext,
         return
 
     user_global: Score = db.get_user_global(str(user_id))
-    user_server: LeaderboardEntry = db.get_user_server_data(str(user_id), str(context.guild.id))
+    user_server_temp: LeaderboardEntry = db.get_user_server_data(str(user_id), str(context.guild.id))
+    user_server: Score = Score(user_server_temp.accepted_score, user_server_temp.declined_score, user_server_temp.accepted_score - user_server_temp.declined_score)
     await context.respond(embed=discord.Embed(
         title=f'✨ Ratio score - {user_data}',
         fields=[
-            discord.EmbedField(name='🌍 Global', value=str(user_global.final), inline=True),
-            discord.EmbedField(name='📍 This server', value=str(user_server.score), inline=True)
+            discord.EmbedField(name='🌍 Global', 
+                                value=f'{user_global.final}'),
+            discord.EmbedField(name='🌍 👍 Accepted', 
+                                value=f'{user_global.accepted} ({user_global.accepted_ratio}%)', inline=True),
+            discord.EmbedField(name='🌍 👎 Declined', 
+                                value=f'{user_global.declined} ({user_global.declined_ratio}%)', inline=True),
+            discord.EmbedField(name='📍 This server', 
+                                value=f'{user_server.final}'),
+            discord.EmbedField(name='📍 👍 Accepted', 
+                                value=f'{user_server.accepted} ({user_server.accepted_ratio}%)', inline=True),
+            discord.EmbedField(name='📍 👎 Declined', 
+                                value=f'{user_server.declined} ({user_server.declined_ratio}%)', inline=True),
         ]
     ))
 
