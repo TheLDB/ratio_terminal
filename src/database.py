@@ -59,7 +59,7 @@ class Database:
         for r in scores:
             accepted_ratios += r[0]
             declined_ratios += r[1]
-        return Score(accepted_ratios, declined_ratios, accepted_ratios - declined_ratios)
+        return Score(accepted_ratios, declined_ratios)
     
     def get_server(self, server_id: int, order: LeaderboardOrder, limit: int) -> ServerInfo:
         # So... can't use ? to pass order.value because it fucking dies

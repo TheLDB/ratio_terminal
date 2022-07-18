@@ -90,7 +90,7 @@ async def score(context: discord.ApplicationContext,
 
     user_global: Score = db.get_user_global(str(user_id))
     user_server_temp: LeaderboardEntry = db.get_user_server_data(str(user_id), str(context.guild.id))
-    user_server: Score = Score(user_server_temp.accepted_score, user_server_temp.declined_score, user_server_temp.accepted_score - user_server_temp.declined_score)
+    user_server: Score = Score(user_server_temp.accepted_score, user_server_temp.declined_score)
     await context.respond(embed=discord.Embed(
         title=f'✨ Ratio score - {user_data}',
         fields=[
