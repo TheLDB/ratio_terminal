@@ -6,7 +6,9 @@ class Score:
     accepted: int
     declined: int
     final: int
-    ratio: float = field(init=False)
+    accepted_ratio: float = field(init=False)
+    declined_ratio: float = field(init=False)
 
-    def __postinit__(self):
-        self.ratio = round((self.accepted / (self.final)) * 100, 1)
+    def __post_init__(self):
+        self.accepted_ratio = round((self.accepted / (self.final)) * 100, 1)
+        self.declined_ratio = 100 - self.accepted_ratio
