@@ -29,13 +29,6 @@ class Database:
                     "id INTEGER PRIMARY KEY, "
                     "key TEXT, "
                     "value TEXT)")
-
-        # Perform database upgrades
-        with suppress(Exception):
-            ## leaderboard: ADD accepted_score, declined_score
-            self.cur.execute("ALTER TABLE leaderboard ADD COLUMN accepted_score INT default 0")
-            self.cur.execute("UPDATE leaderboard SET accepted_score = score")
-            self.cur.execute("ALTER TABLE leaderboard ADD COLUMN declined_score INT default 0")
         
         self.con.commit()
 
