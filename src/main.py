@@ -28,16 +28,17 @@ async def on_ready():
 @bot.event
 async def on_message(message: discord.Message):
     global db
-    # Don't let the bot reply to other bots
-    if message.author.bot:
-        return
+    
+    # Avoid self-replies
+    if message.author == bot.user:
+        pass
     
     content = message.content.lower()
 
     # Check if message is a ratio or a counter
     valid_message = re.search(r"(?:^|\W)ratio+(?:$|\W)|counter(?:$|\W)", content) is not None
     if valid_message:
-        await handle_ratio(message, db)
+        await handle_ratio(message, db, message.author.bot)
 
 
 @leaderboard.command(description='🥇 Ratio gods')
