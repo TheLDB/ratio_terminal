@@ -1,0 +1,7 @@
+version: "3"
+services:
+  ratio_terminal:
+    image: kitwnd/ratio_terminal:latest
+    container_name: ratio_terminal
+    volumes:
+      - ./data:/data
