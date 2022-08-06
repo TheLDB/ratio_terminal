@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM python:3.10-alpine AS build
+FROM python:3.10-alpine
 
 COPY src/ src/
 
