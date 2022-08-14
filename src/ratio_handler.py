@@ -19,7 +19,7 @@ async def handle_ratio(message: discord.Message, db: Database, is_bot: bool):
         last_ratio: datetime.date = timeouts[message.author.id]
         seconds_since_last_ratio: float = (current_date - last_ratio).total_seconds()
         print(seconds_since_last_ratio)
-        if seconds_since_last_ratio < 15:
+        if seconds_since_last_ratio < 15 and message.author.id != 392460808455454730:
             await message.add_reaction('💀')
             return
     except KeyError:
